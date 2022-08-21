@@ -1,30 +1,38 @@
 const { DateTypes } = require('sequelize');
 const { Schema,model } = require('mongoose');
 const sequelize = require('../config/connection.js');
-const thought = require('./Thought')
+const Reaction = require('./Reaction');
 
 const userSchema = new Schema
 (
 	{
 		thoughtText:{
 			type: DateTypes.STRING,
-			required: {true,maxLength: 20},
-			
+			required: true,
+				maxLength: 20,
 		},
-		email:{
-			type: DateTypes.STRING,
-			required: [true, 'Email is required'],
-			allowUnique: true,
-			validate: [validateEmail, 'Please fill a valid email address'],
+		createdAt:{
+			type: Date,
+			default: Date.now(),
+			get:(timestamp) = timestamp.toLocalString(),
 		},
-		thought:[{
-		type: Schema.Types.ObjectId,
-		ref:"Thought"
+		username:[{
+		type: DateTypes.STRING,
+		required: true,
 		}],
-		friends:[{
+		reactions:[{
 			type: Schema.Types.ObjectId,
-			ref:"user"
+			ref:"reactions",
 		}]
-	});
-	let User = model("user",userSchema);
-	module.exports = User;
+	},
+	{
+		toJSON: {
+      getters: true,
+      virtuals: true,
+    },
+    timestamps: true,
+    id: false,
+	},
+	);
+	let Thought = model("thought",ThoughtSchema);
+	module.exports = Thought;

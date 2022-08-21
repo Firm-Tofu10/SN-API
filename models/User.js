@@ -26,6 +26,14 @@ const userSchema = new Schema
 			type: Schema.Types.ObjectId,
 			ref:"user"
 		}]
-	});
+	},
+	{
+		toJSON: {
+      virtuals: true,
+    },
+    timestamps: true,
+    id: false,
+	},
+	);
 	let User = model("user",userSchema);
 	module.exports = User;
