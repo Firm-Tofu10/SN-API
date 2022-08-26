@@ -1,39 +1,39 @@
-const { DateTypes } = require('sequelize');
 const { Schema,model } = require('mongoose');
-const sequelize = require('../config/connection.js');
 const thought = require('./Thought')
 
 const userSchema = new Schema
 (
 	{
-		Username:{
-			type: DateTypes.STRING,
-			allowUnique: true,
+		username:{
+			type: String,
+			unique: true,
 			required:  [true, 'Username is required'],
-			trim: true,
+			trim: true
 		},
 		email:{
-			type: DateTypes.STRING,
+			type: String,
 			required: [true, 'Email is required'],
-			allowUnique: true,
-			validate: [validateEmail, 'Please fill a valid email address'],
+			unique: true,
+			validate: [/.+@.+\..+/, 'Please fill a valid email address']
 		},
-		thought:[{
+		thoughts:[{
 		type: Schema.Types.ObjectId,
 		ref:"Thought"
 		}],
 		friends:[{
 			type: Schema.Types.ObjectId,
-			ref:"user"
+			ref:"User"
 		}]
 	},
 	{
 		toJSON: {
       virtuals: true,
     },
-    timestamps: true,
-    id: false,
+    id: false
 	},
 	);
-	let User = model("user",userSchema);
+	userSchema.virtual("fiendCount").get(function() {
+		return this.friends.length;
+	});
+	let User = model("User",userSchema);
 	module.exports = User;

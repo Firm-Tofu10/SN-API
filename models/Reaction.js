@@ -1,41 +1,38 @@
-const { DateTypes } = require('sequelize');
-const { Schema,model } = require('mongoose');
-const sequelize = require('../config/connection.js');
+const { Schema,Types } = require('mongoose');
 
 const ReactionSchema = new Schema
 (
 	{
 		reactionId:{
 			type: Schema.Types.ObjectId,
-			default: () => new Types.ObjectId,
+			default: () => new Types.ObjectId()
 		},
 		reactionBodyt:{
-			type: DateTypes.String,
+			type: String,
 			required: true,
 				maxLength: 280,
+				minLength: 1
 		},
 		username:{
-		type: DateTypes.STRING,
-		required: true,
+		type: String,
+		required: true
 		},
 		createdAt:[{
 			type: Date,
 			default: Date.now(),
-			get:(timestamp) = timestamp.toLocalString(),
+			get:(timestamp) = timestamp.toLocalString()
 		}],
 		updatedAt:{
 			type: Date,
 			default: Date.now(),
-			get:(timestamp) = timestamp.toLocalString(),
+			get:(timestamp) = timestamp.toLocalString()
 		}
 	},
 	{
 		toJSON: {
-      getters: true,
-      virtuals: true,
+      getters: true
     },
-    timestamps: true,
-    id: false,
+    id: false
 	},
 	);
 	let Reaction = ReactionSchema;
