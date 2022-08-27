@@ -30,5 +30,16 @@ const thoughtSchema = new Schema
     id: false
 	},
 	);
-	let Thought = model("Thought",thoughtschema);
+	
+	// Create a virtual property `getTags` that gets the amount of tags associated with an application
+	thoughtSchema
+.virtual('friendcount')
+// Getter
+.get(function () {
+	return this.friends.length;
+});
+
+// Initialize our Application model
+const Thought = model('Thought', thoughtSchema);
+	
 	module.exports = Thought;
