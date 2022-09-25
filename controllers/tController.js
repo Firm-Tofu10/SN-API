@@ -1,24 +1,54 @@
-const { Thoughts, Users } = require('../models');
+const { Thoughts, Use, Thought } = require('../models');
 
 const tController = {
 	//Route Controller
 
-	getThought(req, res) {
-			Thought.find({message:`Can't get thought${req.params.id}`})
-				.then((thought) => res.json(thought))
+	getThoughts(req, res) {
+			Thoughts.find({message:`Can't get Thoughts${req.params.id}`})
+				.then((Thoughts) => res.json(Thoughts))
 				.catch((err) => res.status(500).json(err));
 				},
 
-	getSingleThought(req, res) {
-			Thought.findOne({ _id: req.params.thoughtid })
+	getSingleThoughts(req, res) {
+		Thoughts.findOne({ _id: req.params.Thoughtsid })
 				.select("-__v")
-				.then((thought) =>
-					!thought
-					? res.status(404).json({ message: "No ID for thought"})
-					: res.json(thought)
+				.then((Thoughts) =>
+					!Thoughts
+					? res.status(404).json({ message: `Cant get Single Thoughts.`})
+					: res.json(Thoughts)
 				)
 				.catch((err) => res.status(500).json(err));
 	},
-
+	createThoughts(req, res) {
+    Thoughts.create(req.body)
+      .then((Thoughts) => res.json(Thoughts))
+      .catch((err) => {
+        console.log(err);
+        return res.status(500).json(err);
+      });
 	
-}
+},
+deleteThoughts(req, res) {
+	Thoughts.findOneAndDelete({ _id: req.params.ThoughtsId })
+		.then((Thoughts) =>
+			!Thoughts
+				? res.status(404).json({ message: `Cant delete single Thoughts` })
+				: Student.deleteMany({ _id: { $in: Thoughts.students } })
+		)
+		.then(() => res.json({ message: `Thoughts and students deleted!` }))
+		.catch((err) => res.status(500).json(err));
+},
+updateThoughts(req, res) {
+	Thoughts.findOneAndUpdate(
+		{ _id: req.params.ThoughtsId },
+		{ $set: req.body },
+		{ runValidators: true, new: true }
+	)
+		.then((Thoughts) =>
+			!Thoughts
+				? res.status(404).json({ message: `No Thoughts with this id!` })
+				: res.json(Thoughts)
+		)
+		.catch((err) => res.status(500).json(err));
+},
+};
