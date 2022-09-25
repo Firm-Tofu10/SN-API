@@ -1,4 +1,4 @@
-const { Thoughts, Use, Thought } = require('../models');
+const { Thoughts, Use, Thought } = require('../models/Thought');
 
 const tController = {
 	//Route Controller
