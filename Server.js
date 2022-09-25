@@ -23,5 +23,5 @@ db.once('open', () => {
   });
 });
 
-export default server;
+
 
