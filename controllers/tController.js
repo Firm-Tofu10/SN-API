@@ -2,13 +2,13 @@ const { Thoughts, Use, Thought } = require('../models/Thought');
 
 const tController = {
 	//Route Controller
-
+//Gets Thoughts
 	getThoughts(req, res) {
 			Thoughts.find({message:`Can't get Thoughts${req.params.id}`})
 				.then((Thoughts) => res.json(Thoughts))
 				.catch((err) => res.status(500).json(err));
 				},
-
+//Gets single Thought
 	getSingleThoughts(req, res) {
 		Thoughts.findOne({ _id: req.params.Thoughtsid })
 				.select("-__v")
@@ -19,6 +19,7 @@ const tController = {
 				)
 				.catch((err) => res.status(500).json(err));
 	},
+	//creates a Thought
 	createThoughts(req, res) {
     Thoughts.create(req.body)
       .then((Thoughts) => res.json(Thoughts))
@@ -28,6 +29,7 @@ const tController = {
       });
 	
 },
+//Deletes Thought
 deleteThoughts(req, res) {
 	Thoughts.findOneAndDelete({ _id: req.params.ThoughtsId })
 		.then((Thoughts) =>
@@ -38,6 +40,7 @@ deleteThoughts(req, res) {
 		.then(() => res.json({ message: `Thoughts and students deleted!` }))
 		.catch((err) => res.status(500).json(err));
 },
+//Updates Thought
 updateThoughts(req, res) {
 	Thoughts.findOneAndUpdate(
 		{ _id: req.params.ThoughtsId },

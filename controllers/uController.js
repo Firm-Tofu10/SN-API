@@ -1,0 +1,57 @@
+const { Users, Use, User } = require('../models/Thought');
+
+const uController = {
+//Route Controller
+//Gets User
+	getUsers(req, res) {
+		Users.find({message:`Can't get Users${req.params.id}`})
+			.then((Users) => res.json(Users))
+			.catch((err) => res.status(500).json(err));
+			},
+//Gets single User
+getSingleUsers(req, res) {
+	Users.findOne({ _id: req.params.Usersid })
+			.select("-__v")
+			.then((Users) =>
+				!Users
+				? res.status(404).json({ message: `Cant get Single User.`})
+				: res.json(Users)
+			)
+			.catch((err) => res.status(500).json(err));
+},
+//creates a User
+createUsers(req, res) {
+	Users.create(req.body)
+		.then((Users) => res.json(Users))
+		.catch((err) => {
+			console.log(err);
+			return res.status(500).json(err);
+		});
+
+},
+//Deletes User
+deleteUsers(req, res) {
+	Users.findOneAndDelete({ _id: req.params.UsersId })
+		.then((Users) =>
+			!Users
+				? res.status(404).json({ message: `Cant delete single Users` })
+				: Student.deleteMany({ _id: { $in: Users.students } })
+		)
+		.then(() => res.json({ message: `Users and students deleted!` }))
+		.catch((err) => res.status(500).json(err));
+},
+//Updates User
+updateUsers(req, res) {
+	Users.findOneAndUpdate(
+		{ _id: req.params.UsersId },
+		{ $set: req.body },
+		{ runValidators: true, new: true }
+	)
+		.then((Users) =>
+			!Users
+				? res.status(404).json({ message: `No Users with this id!` })
+				: res.json(Users)
+		)
+		.catch((err) => res.status(500).json(err));
+},
+};
