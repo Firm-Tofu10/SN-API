@@ -9,8 +9,8 @@ const tController = {
 				.catch((err) => res.status(500).json(err));
 				},
 //Gets single Thought
-	getSingleThoughts(req, res) {
-		Thoughts.findOne({ _id: req.params.Thoughtsid })
+	getSingleThought(req, res) {
+		Thoughts.findOne({ _id: req.params.thoughtsid })
 				.select("-__v")
 				.then((Thoughts) =>
 					!Thoughts
@@ -20,7 +20,7 @@ const tController = {
 				.catch((err) => res.status(500).json(err));
 	},
 	//creates a Thought
-	createThoughts(req, res) {
+	createThought(req, res) {
     Thoughts.create(req.body)
       .then((Thoughts) => res.json(Thoughts))
       .catch((err) => {
@@ -30,7 +30,7 @@ const tController = {
 	
 },
 //Deletes Thought
-deleteThoughts(req, res) {
+deleteThought(req, res) {
 	Thoughts.findOneAndDelete({ _id: req.params.ThoughtsId })
 		.then((Thoughts) =>
 			!Thoughts
@@ -41,7 +41,7 @@ deleteThoughts(req, res) {
 		.catch((err) => res.status(500).json(err));
 },
 //Updates Thought
-updateThoughts(req, res) {
+updateThought(req, res) {
 	Thoughts.findOneAndUpdate(
 		{ _id: req.params.ThoughtsId },
 		{ $set: req.body },
@@ -55,3 +55,4 @@ updateThoughts(req, res) {
 		.catch((err) => res.status(500).json(err));
 },
 };
+module.exports = tController;

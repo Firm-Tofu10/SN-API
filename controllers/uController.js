@@ -3,13 +3,13 @@ const { Users, Use, User } = require('../models/Thought');
 const uController = {
 //Route Controller
 //Gets User
-	getUsers(req, res) {
+	getAllUsers(req, res) {
 		Users.find({message:`Can't get Users${req.params.id}`})
 			.then((Users) => res.json(Users))
 			.catch((err) => res.status(500).json(err));
 			},
 //Gets single User
-getSingleUsers(req, res) {
+getSingleUser(req, res) {
 	Users.findOne({ _id: req.params.Usersid })
 			.select("-__v")
 			.then((Users) =>
@@ -20,7 +20,7 @@ getSingleUsers(req, res) {
 			.catch((err) => res.status(500).json(err));
 },
 //creates a User
-createUsers(req, res) {
+createUser(req, res) {
 	Users.create(req.body)
 		.then((Users) => res.json(Users))
 		.catch((err) => {
@@ -30,7 +30,7 @@ createUsers(req, res) {
 
 },
 //Deletes User
-deleteUsers(req, res) {
+deleteUser(req, res) {
 	Users.findOneAndDelete({ _id: req.params.UsersId })
 		.then((Users) =>
 			!Users
@@ -41,7 +41,7 @@ deleteUsers(req, res) {
 		.catch((err) => res.status(500).json(err));
 },
 //Updates User
-updateUsers(req, res) {
+updateUser(req, res) {
 	Users.findOneAndUpdate(
 		{ _id: req.params.UsersId },
 		{ $set: req.body },
@@ -55,3 +55,4 @@ updateUsers(req, res) {
 		.catch((err) => res.status(500).json(err));
 },
 };
+module.exports = uController;
