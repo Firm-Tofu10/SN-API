@@ -45,4 +45,4 @@ const thoughtSchema = new Schema
 // Initialize our Application model
 const Thought = model('Thought', thoughtSchema);
 	
-	module.exports = Thought;
+	module.exports = {Thought};

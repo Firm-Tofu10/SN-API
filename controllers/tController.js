@@ -1,16 +1,16 @@
-const { Thoughts, Use, Thought } = require('../models/Thought');
+const { Thought, Use } = require('../models/Thought');
 
 const tController = {
 	//Route Controller
 //Gets Thoughts
 	getThoughts(req, res) {
-			Thoughts.find({message:`Can't get Thoughts${req.params.id}`})
+			Thought.find({message:`Can't get Thoughts${req.params.id}`})
 				.then((Thoughts) => res.json(Thoughts))
 				.catch((err) => res.status(500).json(err));
 				},
 //Gets single Thought
 	getSingleThought(req, res) {
-		Thoughts.findOne({ _id: req.params.thoughtsid })
+		Thought.findOne({ _id: req.params.thoughtsid })
 				.select("-__v")
 				.then((Thoughts) =>
 					!Thoughts
@@ -21,7 +21,7 @@ const tController = {
 	},
 	//creates a Thought
 	createThought(req, res) {
-    Thoughts.create(req.body)
+    Thought.create(req.body)
       .then((Thoughts) => res.json(Thoughts))
       .catch((err) => {
         console.log(err);
@@ -31,7 +31,7 @@ const tController = {
 },
 //Deletes Thought
 deleteThought(req, res) {
-	Thoughts.findOneAndDelete({ _id: req.params.ThoughtsId })
+	Thought.findOneAndDelete({ _id: req.params.ThoughtsId })
 		.then((Thoughts) =>
 			!Thoughts
 				? res.status(404).json({ message: `Cant delete single Thoughts` })
@@ -42,7 +42,7 @@ deleteThought(req, res) {
 },
 //Updates Thought
 updateThought(req, res) {
-	Thoughts.findOneAndUpdate(
+	Thought.findOneAndUpdate(
 		{ _id: req.params.ThoughtsId },
 		{ $set: req.body },
 		{ runValidators: true, new: true }
