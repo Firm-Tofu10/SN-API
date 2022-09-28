@@ -1,5 +1,5 @@
 const { Schema,model } = require('mongoose');
-const thought = require('./Thought')
+// const thought = require('./Thought')
 
 const userSchema = new Schema
 (
@@ -36,4 +36,5 @@ const userSchema = new Schema
 		return this.friends.length;
 	});
 	let User = model("User",userSchema);
-	module.exports = User;
+	
+	module.exports = {User};
