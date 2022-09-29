@@ -31,7 +31,7 @@ const tController = {
 },
 //Deletes Thought
 deleteThought(req, res) {
-	Thought.findOneAndDelete({ _id: req.params.ThoughtsId })
+	Thought.findOneAndDelete({ _id: req.params.thoughtsid })
 		.then((Thoughts) =>
 			!Thoughts
 				? res.status(404).json({ message: `Cant delete single Thoughts` })
@@ -43,7 +43,7 @@ deleteThought(req, res) {
 //Updates Thought
 updateThought(req, res) {
 	Thought.findOneAndUpdate(
-		{ _id: req.params.ThoughtsId },
+		{ _id: req.params.thoughtsid },
 		{ $set: req.body },
 		{ runValidators: true, new: true }
 	)
@@ -54,5 +54,16 @@ updateThought(req, res) {
 		)
 		.catch((err) => res.status(500).json(err));
 },
+
+// let reactions = await Thought.findOneAndUpdate({ _id: req.params.thoughtId }, {
+// 	$push: {
+// 			reactions: {
+// 					reactionBody: req.body.reactionBody,
+// 					username: req.body.username
+// 			}
+// 	}
+// }, { new: true });
+
+
 };
 module.exports = tController;

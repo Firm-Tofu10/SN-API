@@ -1,5 +1,5 @@
 const { Schema,model } = require('mongoose');
-// const Reaction = require('./Reaction');
+const ReactionsSchema = require('./Reaction');
 
 const thoughtSchema = new Schema
 (
@@ -13,18 +13,17 @@ const thoughtSchema = new Schema
 		createdAt:{
 			type: Date,
 			default: Date.now(),
-			get:(timestamp) => timeStamp(timestamp)
+			get:(timestamp) => timestamp.toLocaleString()
 		},
 		username:[{
 		type: String,
 		required: true
-		}],
-		reactionBody:{
-			type: String,
-			required: true,
-			maxLength: 280,
-		},
-		// Seems to not be needed and throwing errs
+		}], 
+		//casuing issues
+		reactions:[
+			ReactionsSchema
+		],
+		
 	},
 	{
 		toJSON: {
@@ -35,11 +34,8 @@ const thoughtSchema = new Schema
 	);
 	
 	// Create a virtual property `getTags` that gets the amount of tags associated with an application
-	thoughtSchema
-.virtual('friendcount')
-// Getter
-.get(function () {
-	return this.friends.length;
+	thoughtSchema.virtual('reactionsCount').get(function () {
+	return this.reactions.length;
 });
 
 // Initialize our Application model

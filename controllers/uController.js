@@ -31,7 +31,7 @@ createUser(req, res) {
 },
 //Deletes User
 deleteUser(req, res) {
-	User.findOneAndDelete({ _id: req.params.UsersId })
+	User.findOneAndDelete({ _id: req.params.Usersid })
 		.then((Users) =>
 			!Users
 				? res.status(404).json({ message: `Cant delete single Users` })
@@ -43,7 +43,7 @@ deleteUser(req, res) {
 //Updates User
 updateUser(req, res) {
 	User.findOneAndUpdate(
-		{ _id: req.params.UsersId },
+		{ _id: req.params.Usersid },
 		{ $set: req.body },
 		{ runValidators: true, new: true }
 	)

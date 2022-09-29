@@ -1,6 +1,6 @@
 const { Schema,Types } = require('mongoose');
 
-const ReactionSchema = new Schema
+const ReactionsSchema = new Schema
 (
 	{
 		reactionId:{
@@ -20,12 +20,12 @@ const ReactionSchema = new Schema
 		createdAt:[{
 			type: Date,
 			default: Date.now(),
-			get:(timestamp) = timestamp.toLocalString()
+			get:(timestamp) => timestamp.toLocaleString()
 		}],
 		updatedAt:{
 			type: Date,
 			default: Date.now(),
-			get:(timestamp) = timestamp.toLocalString()
+			get:(timestamp) => timestamp.toLocaleString()
 		}
 	},
 	{
@@ -35,5 +35,6 @@ const ReactionSchema = new Schema
     id: false
 	},
 	);
-	let Reaction = ReactionSchema;
+	let Reaction = ReactionsSchema;
+	
 	module.exports = Reaction;
