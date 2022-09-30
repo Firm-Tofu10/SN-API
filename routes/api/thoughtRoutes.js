@@ -12,9 +12,9 @@ const {
 
 router.route('/').get(getThoughts).post(createThought);
 
-router.route('/:thoughtsid/reactions')
-.post(updateRection)
-.delete(deleteRection);
+// router.route('/:thoughtsid/reactions')
+// .post(updateRection)
+// .delete(deleteRection);
 
 router.route('/:thoughtsid')
 .get(getSingleThought)
