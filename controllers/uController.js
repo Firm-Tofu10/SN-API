@@ -38,7 +38,7 @@ deleteUser(req, res) {
 				: Student.deleteMany({ _id: { $in: Users.students } })
 		)
 		.then(() => res.json({ message: `Users and students deleted!` }))
-		.catch((err) => res.status(500).json(err));
+		.catch((err) => res.json(err));
 },
 //Updates User
 updateUser(req, res) {

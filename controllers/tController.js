@@ -38,7 +38,7 @@ deleteThought(req, res) {
 				: Student.deleteMany({ _id: { $in: Thoughts.students } })
 		)
 		.then(() => res.json({ message: `Thoughts and students deleted!` }))
-		.catch((err) => res.status(500).json(err));
+		.catch((err) => res.json(err));
 },
 //Updates Thought
 updateThought(req, res) {
