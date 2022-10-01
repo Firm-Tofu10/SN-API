@@ -6,4 +6,6 @@ router.use('/thought', thoughtsRoutes);
 
 router.use('/user', usersRoutes);
 
+router.use('/friend',usersRoutes);
+
 module.exports = router;

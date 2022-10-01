@@ -54,5 +54,33 @@ updateUser(req, res) {
 		)
 		.catch((err) => res.status(500).json(err));
 },
+
+addFriend(req, res) {
+	User.findOneAndUpdate({ _id: req.params.userId },
+		 {$push: {friends: req.params.friendid}},
+		 { new: true, runValidators: true })
+			.then((user) => {
+					if (!user) {
+							res.status(404).json({ message: "No Friend ID Found!" });
+							return;
+					}
+					res.json(user);
+			})
+			.catch((err) => res.status(500).json(err));
+},
+
+deleteFriend(req, res) {
+	User.findOneAndUpdate({ _id: req.params.userId },
+		 { $pull: { friends: req.params.friendid } },
+		 { new: true, runValidators: true })
+			.then(user => {
+					if (!user) {
+							res.status(404).json({ message: 'No Friend ID Found!' });
+							return;
+					}
+					res.json(user);
+			})
+			.catch(err => res.status(400).json(err));
+}
 };
 module.exports = uController;
